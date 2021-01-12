@@ -1,0 +1,34 @@
+﻿@model IEnumerable<StoreFrontV3.DATA.EF.Department>
+
+@{
+    ViewBag.Title = "Departments";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.DepartmentName)*@
+            @Html.ActionLink(item.DepartmentName, "Details", new { id = item.DeptID, @class = "btn background-color-orange font-color-white" })
+
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DeptID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DeptID })
+        </td>
+    </tr>
+}
+
+</table>

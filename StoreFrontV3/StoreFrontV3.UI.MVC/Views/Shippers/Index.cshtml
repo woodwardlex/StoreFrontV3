@@ -1,0 +1,34 @@
+﻿@model IEnumerable<StoreFrontV3.DATA.EF.Shipper>
+
+@{
+    ViewBag.Title = "Shippers";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.CompanyName)*@
+            @Html.ActionLink(item.CompanyName, "Details", new { id = item.ShippingID })
+
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ShippingID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ShippingID })
+        </td>
+    </tr>
+}
+
+</table>

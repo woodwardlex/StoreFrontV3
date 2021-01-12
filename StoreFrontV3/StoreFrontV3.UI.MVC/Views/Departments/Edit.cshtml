@@ -1,0 +1,34 @@
+﻿@model StoreFrontV3.DATA.EF.Department
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm("Edit", "Departments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.DeptID)
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DepartmentName, new { htmlAttributes = new { @class = "form-control", placeholder = "Department" } })
+            @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+            @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-default" })
+
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

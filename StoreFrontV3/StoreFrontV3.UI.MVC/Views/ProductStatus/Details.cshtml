@@ -1,0 +1,24 @@
+﻿@model StoreFrontV3.DATA.EF.ProductStatus
+
+@{
+    ViewBag.Title = Model.StatusName;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProdStatusID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

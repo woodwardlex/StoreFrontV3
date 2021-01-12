@@ -1,0 +1,61 @@
+﻿@model IEnumerable<StoreFrontV3.DATA.EF.Product>
+
+@{
+    ViewBag.Title = "Products";
+}
+
+
+<!-- Single Post -->
+@*<div class="single-post first">
+        <div class="image">
+            <img src="https://via.placeholder.com/75x75" alt="#">
+        </div>
+        <div class="content">
+            <h5><a href="#">Girls Dress</a></h5>
+            <p class="price">$99.50</p>
+            <ul class="reviews">
+                <li class="yellow"><i class="ti-star"></i></li>
+                <li class="yellow"><i class="ti-star"></i></li>
+                <li class="yellow"><i class="ti-star"></i></li>
+                <li><i class="ti-star"></i></li>
+                <li><i class="ti-star"></i></li>
+            </ul>
+        </div>
+    </div>*@
+<!-- End Single Post -->
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Add a Position", "Create")
+</p>
+
+@foreach (var item in Model)
+{
+    <div class="single-post first">
+        <div class="image">
+            <img src="~/Content/Products/@item.ProdImage" alt="#">
+        </div>
+        <div class="content">
+            <h5><a href="@Url.Action("Details", "Products", new { id=item.ProductsID})">@item.ProdName</a></h5>
+            <p class="price">@item.Price</p>
+            <p>@item.Description</p>
+            <p>@item.Category.CategoryName</p>
+            <p>@item.ProductStatus.StatusName</p>
+            <ul class="reviews">
+                <li class="yellow"><i class="ti-star"></i></li>
+                <li class="yellow"><i class="ti-star"></i></li>
+                <li class="yellow"><i class="ti-star"></i></li>
+                <li><i class="ti-star"></i></li>
+                <li><i class="ti-star"></i></li>
+            </ul>
+        </div>
+        <div class="prodBtns">
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProductsID }) |
+            @*@Html.ActionLink("Details", "Details", new { id = item.ProductsID }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProductsID })
+
+        </div>
+    </div>
+}
+
