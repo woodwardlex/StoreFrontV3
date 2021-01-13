@@ -204,8 +204,10 @@
     <Content Include="Content\css\responsive.css" />
     <Content Include="Content\css\slicknav.min.css" />
     <Content Include="Content\css\themify-icons.css" />
+    <Content Include="Content\CustomStyle.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\themify.svg" />
+    <Content Include="Content\images\CustomErrorStoreFront.jpg" />
     <Content Include="Content\images\favicon.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\logo2.png" />
@@ -390,6 +392,9 @@
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Categories\CategoryCreate.cshtml" />
+    <Content Include="Views\Categories\CategoryDetails.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

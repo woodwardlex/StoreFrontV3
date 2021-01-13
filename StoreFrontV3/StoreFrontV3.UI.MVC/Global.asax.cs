@@ -17,5 +17,11 @@ namespace StoreFrontV3.UI.MVC
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        //custom error
+        protected void Application_Error()
+        {
+            Response.Redirect("~/Home/Error"); 
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -122,10 +123,51 @@ namespace StoreFrontV3.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductsID,ProdName,Description,CategoryID,ProdStatusID,UnitsSold,Price,ShippingID,DeptID,EmployeeID,ProdImage")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductsID,ProdName,Description,CategoryID,ProdStatusID,UnitsSold,Price,ShippingID,DeptID,EmployeeID,ProdImage")] Product product, HttpPostedFileBase prodImage)
         {
             if (ModelState.IsValid)
             {
+                #region File Upload
+				string file = "NoImage.png";
+
+                if (prodImage != null)
+                {
+                    file = prodImage.FileName;
+                    string ext = file.Substring(file.LastIndexOf('.'));
+                    string[] goodExts = { ".jpeg", ".jpg", ".png", ".gif" };
+
+                    //Check that the uploaded file ext is in our list of good file extensions
+                    if (goodExts.Contains(ext.ToLower()))
+                    {
+                        //if valid, check file size <= 4mb (Max by default from ASP.NET)
+                        //Can change this using the MaxRequestLength in the web.config
+                        if (prodImage.ContentLength <= 4194304)
+                        {
+                            //create a new file name using a guid
+                            file = Guid.NewGuid() + ext;
+
+                            #region Resize Image
+                            //Points to the contents of the file(bookCover) and converts it to an 
+                            //image datatype
+                            //Image convertedImage = Image.FromStream(prodImage.InputStream);
+
+                            ////Pixel size
+                            //int maxImageSize = 200;
+                            //int maxThumbSize = 100;
+
+                            ////Resize our image and save it as a default and thumbnail version in our path
+                            //prodImage.SaveAs(Server.MapPath("~/Content/Products/" + ));
+                            #endregion
+
+                            if (product.ProdImage != null && product.ProdImage != "NoImage.png")
+                            {
+                                System.IO.File.Delete(Server.MapPath("~/Content/Products/" + product.ProdImage));
+                            }
+                        }
+                        product.ProdImage = file;
+                    }
+                }
+                #endregion
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

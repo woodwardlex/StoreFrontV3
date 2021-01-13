@@ -9,7 +9,12 @@
 @*<p>
     @Html.ActionLink("Create New", "Create")
 </p>*@
-<table class="table">
+<div id="messageContent"></div>
+<p class="row">
+    <button id="createToggle" class="btn btn-primary">Add New</button>
+</p>
+<div id="categoryCreate">@Html.Partial("CategoryCreate",new StoreFrontV3.DATA.EF.Category())</div>
+<table class="table" id="categoryTable">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.CategoryName)
@@ -18,16 +23,31 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr id="category-@item.CategoryID">
         <td>
             @Html.DisplayFor(modelItem => item.CategoryName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CategoryID }) |
             @Html.ActionLink("Details", "Details", new { id=item.CategoryID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryID })
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.CategoryID })*@
+            @Ajax.ActionLink("Delete","AjaxDelete","Categories",new { id=item.CategoryID}, new AjaxOptions {
+           HttpMethod = "POST", Confirm = $"Are you sure you want to delete the {item.CategoryName} category?", OnSuccess = "deleteConfirmed", OnFailure = "deleteFailed"
+       })
         </td>
     </tr>
 }
 
 </table>
+
+<script>
+    function deleteConfirmed(response, status, data) {
+        var rowId = "#category-" + response.id;
+        $("#categoryTable").find(rowId).remove();
+        $("#messageContent").html("<div class='alert alert-success'>" + response.message + "</div>");
+
+    }
+    function deleteFailed(response, status, data) {
+        $("#messageContent").html("<div class='alert alert-danger'> Delete unsuccessful. Is this category used by a product?</div>");
+    }
+</script>
